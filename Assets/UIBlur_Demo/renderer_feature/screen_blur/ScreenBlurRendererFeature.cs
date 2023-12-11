@@ -60,7 +60,7 @@ public class ScreenBlurRendererFeature : ScriptableRendererFeature
 		SettingParams param;
 		Material _material;
 		RenderTextureDescriptor _blurTextureDescriptor;
-		RTHandle _blurRTHandle1, _blurRTHandle2, _grabRTHandle, _grabBlurRTHandle;
+		RTHandle _blurRTHandle1, _blurRTHandle2, _grabRTHandle;
 		int _grabTexID, _grabBlurTexID;
 		static readonly int _idBlurPower = Shader.PropertyToID("_BlurPower");
 		ProfilingSampler _profilingSampler = new ProfilingSampler("ScreenBlurRender");
@@ -86,7 +86,6 @@ public class ScreenBlurRendererFeature : ScriptableRendererFeature
 
 			//Check if the descriptor has changed, and reallocate the RTHandle if necessary.
 			RenderingUtils.ReAllocateIfNeeded(ref _grabRTHandle, _blurTextureDescriptor);
-			RenderingUtils.ReAllocateIfNeeded(ref _grabBlurRTHandle, _blurTextureDescriptor);
 			RenderingUtils.ReAllocateIfNeeded(ref _blurRTHandle1, _blurTextureDescriptor);
 			RenderingUtils.ReAllocateIfNeeded(ref _blurRTHandle2, _blurTextureDescriptor);
 		}
@@ -110,7 +109,6 @@ public class ScreenBlurRendererFeature : ScriptableRendererFeature
 				Blitter.BlitCameraTexture(cmd, camera_target_handle, _blurRTHandle1, _material, 0);
 
 				Blitter.BlitCameraTexture(cmd, _blurRTHandle1, _blurRTHandle2, _material, 1);
-				// Blitter.BlitCameraTexture(cmd, _blurRTHandle2, _grabBlurRTHandle);
 				cmd.SetGlobalTexture(_grabBlurTexID, _blurRTHandle2);
 
 				if (param.IsApplyScreen)
@@ -140,7 +138,6 @@ public class ScreenBlurRendererFeature : ScriptableRendererFeature
             	Destroy(material);
 #endif
 			_grabRTHandle?.Release();
-			_grabBlurRTHandle?.Release();
 			_blurRTHandle1?.Release();
 			_blurRTHandle2?.Release();
 		}
