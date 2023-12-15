@@ -1,8 +1,8 @@
+// #define VR_SPI
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.XR;
 public class ScreenBlurRendererFeature : ScriptableRendererFeature
 {
 	[Serializable]
@@ -69,8 +69,10 @@ public class ScreenBlurRendererFeature : ScriptableRendererFeature
 		{
 			_material = material;
 			_blurTextureDescriptor = new RenderTextureDescriptor(Screen.width, Screen.height, RenderTextureFormat.Default, 0);
+#if VR_SPI
 			_blurTextureDescriptor.volumeDepth = 2;
 			_blurTextureDescriptor.dimension = TextureDimension.Tex2DArray;
+#endif
 			_grabTexID = Shader.PropertyToID("_GrabTex");
 			_grabBlurTexID = Shader.PropertyToID("_GrabBlurTex");
 		}
