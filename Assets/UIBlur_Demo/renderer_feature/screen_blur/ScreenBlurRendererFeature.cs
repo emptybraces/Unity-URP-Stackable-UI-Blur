@@ -68,7 +68,9 @@ public class ScreenBlurRendererFeature : ScriptableRendererFeature
 		public ScreenBlurRenderPass(Material material)
 		{
 			_material = material;
-			_blurTextureDescriptor = new RenderTextureDescriptor(Screen.width, Screen.height, RenderTextureFormat.ARGB32, 0);
+			_blurTextureDescriptor = new RenderTextureDescriptor(Screen.width, Screen.height, RenderTextureFormat.Default, 0);
+			_blurTextureDescriptor.volumeDepth = 2;
+			_blurTextureDescriptor.dimension = TextureDimension.Tex2DArray;
 			_grabTexID = Shader.PropertyToID("_GrabTex");
 			_grabBlurTexID = Shader.PropertyToID("_GrabBlurTex");
 		}
