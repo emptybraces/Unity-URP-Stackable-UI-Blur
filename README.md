@@ -1,4 +1,4 @@
-# Unity_URP_Stackable_UI_Blur
+# Unity URP Stackable UI Blur
 Sample a representaion of stackable UI Blur with URP.
 
 I see that working with 2022.3, 2023.2 with standalone platform.
